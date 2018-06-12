@@ -1,40 +1,28 @@
+// Import React since we are using React.
 import React, { Component } from 'react';
-import logo from './logo.svg';
+// Import app css file.
 import './App.css';
+// Import home page.
+import Home from './containers/Home';
+// Import saved articles page.
+import Saved from './containers/Saved';
+// Import React Router to add page routes.
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+// App components.
 class App extends Component {
-  state = {
-    response: ''
-  };
-
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res.express }))
-      .catch(err => console.log(err));
-  }
-
-  callApi = async () => {
-    const response = await fetch('/api/hello');
-    const body = await response.json();
-
-    if (response.status !== 200) throw Error(body.message);
-
-    return body;
-  };
-
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      // Create routes for Home and Saved components/pages.
+      <Router>
+          <div>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/saved" component={Saved} />
+          </div>
+      </Router> 
     );
   }
 }
 
+// Export the App component.
 export default App;
